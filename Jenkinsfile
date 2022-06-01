@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'jdk11-mvn-3.8.5' }
+    agent { label 'nodejs2' }
     stages { 
         stage('SCM') {
             steps {
@@ -8,18 +8,26 @@ pipeline {
         }
         stage('installing npm') {
             steps {
-                sh 'npm install'
+                nodejs(nodeJSInstallationName: 'NodeJs18.1.0' ) {
+                    sh 'npm install '
+                }
+        
             }
         }
         stage('test') {
             steps {
-                sh 'npm test'
+                nodejs(nodeJSInstallationName: 'NodeJs18.1.0' ) {
+                    sh 'npm test '
+                }
             }
         }
         stage('build') {
             steps {
-                sh 'npm run build'
+                nodejs(nodeJSInstallationName: 'NodeJs18.1.0' ) {
+                    sh 'npm run build'
+                }
             }
         }
     }
+
 }
